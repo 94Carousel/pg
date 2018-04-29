@@ -596,6 +596,11 @@ func (q *Query) SelectAndCount(values ...interface{}) (count int, err error) {
 	return count, err
 }
 
+func (q *Query) ForEach(fn interface{}) error {
+	m := newFuncModel(fn)
+	return q.Select(m)
+}
+
 func (q *Query) forEachHasOneJoin(fn func(*join)) {
 	if q.model == nil {
 		return
